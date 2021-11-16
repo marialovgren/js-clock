@@ -53,12 +53,13 @@ const now = () => {
     minute = minute < 10 ? "0" + minute : minute;
     second = second < 10 ? "0" + second : second;
 
+    // hämtar ut aktuell tid
     hourEl.innerText = `${hour}`;
     minuteEl.innerText = `${minute}`;
     secondEl.innerText = `${second}`;     
 };
 
-setInterval("now()", 1000);
+setInterval(now(), 1000);
 
 /*
 let tick = 0;
