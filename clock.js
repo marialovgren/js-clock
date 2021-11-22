@@ -42,48 +42,37 @@ const hourEl = document.querySelector('#hour');
 const minuteEl = document.querySelector('#minute');
 const secondEl = document.querySelector('#second');
 
-const now = () => {
-    let date = new Date();
-    let hour = date.getHours();
-    let minute = date.getMinutes();
-    let second = date.getSeconds();
+const zeropad = num => {
 
-    // gör att det läggs till en nolla om talet är mellen 0-9
-    hour = hour < 10 ? "0" + hour : hour;
-    minute = minute < 10 ? "0" + minute : minute;
-    second = second < 10 ? "0" + second : second;
+	if (num < 10) {
+		return "0" + num;
+	}
+	return num;
 
-    // hämtar ut aktuell tid
-    hourEl.innerText = `${hour}`;
-    minuteEl.innerText = `${minute}`;
-    secondEl.innerText = `${second}`;     
-};
+	/*
+	return (num < 10)
+		? "0" + num
+		: num;
+	*/
+}
 
-setInterval(now(), 1000);
+const getAndUpdateClock = () => {
+	const now = new Date(); // gets current timestamp when this line was executed
 
-/*
-let tick = 0;
-setInterval( () => {
-    tick++;
-    console.log("second", tick);
+	// update DOM clock
+	hourEl.innerText = zeropad(now.getHours());
+	minuteEl.innerText = zeropad(now.getMinutes());
+	secondEl.innerText = zeropad(now.getSeconds());
+}
+
+
+setInterval(() => {
+
+	// do something every second
+	getAndUpdateClock();
+
 }, 1000);
 
 
-/*
-// setTimeout är inte BLOCKERANDE utan den startas och så körs resterande kod
-setTimeout( () => {
-    console.log("Timeout")
-}, 5000);
-
-
-console.log("ticker started");
-
-setInterval( () => {
-    console.log("Intervall")
-}, 1000);
-
-
-// stänga intervall
-clearInterval(); // inom parantesen skickas namnet på funktionen med som ska avslutas
-
-*/
+// set initial time
+getAndUpdateClock();
